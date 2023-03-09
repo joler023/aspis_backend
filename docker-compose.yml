@@ -1,30 +1,25 @@
-version: '3'
-networks:
-    adata_networks:
-        driver: bridge
+##Creacion de instancias en postgress y PGAdmin por Docker
+version: '3.8'
+
 services:
-  db:
-    image: postgres:13
+
+  postgres: ##BD en Postgres
+    image: postgres 
     restart: always
-    environment:
-      POSTGRES_HOST: localhost
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: '123456'
     ports:
       - "5432:5432"
-    networks:
-      - adata_networks
-  nestjs:
-    build: .
-    ports:
-      - "5000:5000"
-    depends_on:
-      - db
     environment:
-      DB_HOST: db
-      DB_PORT: 5432
-      DB_USERNAME: postgres
-      DB_PASSWORD: '123456'
-      DB_DATABASE: aspis
-    networks:
-      - adata_networks
+      - DATABASE_HOST=127.0.0.1
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=aspis
+
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "admin@admin.com"
+      PGADMIN_DEFAULT_PASSWORD: "admin"
+    ports:
+      - "80:80"
+    depends_on:
+      - postgres

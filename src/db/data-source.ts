@@ -4,8 +4,8 @@ export const dataSourceOptions:  DataSourceOptions = {
     type: 'postgres',
       host: 'localhost',
       port: 5432,
-      username: 'aspis',
-      password: '123456',
+      username: 'root',
+      password: 'root',
       database: 'aspis',
       entities: ['dist/**/*.entity{.ts,.js}'],
       migrations: ['dist/db/migrations/*.js']
